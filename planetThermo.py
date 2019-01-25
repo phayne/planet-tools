@@ -86,6 +86,59 @@ def pco2(T):
 
     return p
 
+########
+# th2o #
+########
+# --------------------------------------------
+# Equilibrium H2O frost point at given partial
+# pressure
+# Marti and Mauersberger (1993)
+# --------------------------------------------
+# Input:
+#    p = vapor pressure [Pa]
+# Output:
+#    temperature of solid [K]
+def th2o(p):
+    # Definitions
+    dT = 0.1 # Temperature precision
+    Tmin = 20 # Minimum temperature to try
+    Tmax = 600.0 # Maximum temperature to try
+    
+    # Temperature and pressure arrays
+    T_arr = np.arange(Tmin, Tmax, dT)
+    p_arr = ph2o(T_arr)
+    
+    # Interpolate to find T
+    T = np.interp(p, p_arr, T_arr)
+    
+    return T
+
+########
+# tco2 #
+########
+# --------------------------------------------
+# Equilibrium CO2 frost point at given partial
+# pressure
+# Brown and Ziegler (1980)
+# --------------------------------------------
+# Input:
+#    p = vapor pressure [Pa]
+# Output:
+#    temperature of solid [K]
+def tco2(p):
+    # Definitions
+    dT = 0.1 # Temperature precision
+    Tmin = 20 # Minimum temperature to try
+    Tmax = 200.0 # Maximum temperature to try
+    
+    # Temperature and pressure arrays
+    T_arr = np.arange(Tmin, Tmax, dT)
+    p_arr = pco2(T_arr)
+    
+    # Interpolate to find T
+    T = np.interp(p, p_arr, T_arr)
+    
+    return T
 
 ######################
 # h2oSublimationRate #
