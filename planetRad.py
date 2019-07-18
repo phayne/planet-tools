@@ -164,11 +164,12 @@ def equilibrium_temperature(F, A, e):
 #    asurf = albedo of underlying surface
 # Output:
 #    directional-hemispheric reflectance
+@np.vectorize
 def albedo_layer_twostream(tau, w0, g, mu, asurf):
     
     # Cutoff criterion for semi-infinite approx.
     CUTOFF_H = 1e3
-    CUTOFF_L = 1e-3
+    CUTOFF_L = -1e3
     
     # DEBUG
     #print(w0p/(1+p) * (1-bp*x*mu)/(1+x*mu))
